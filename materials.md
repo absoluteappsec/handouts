@@ -4,6 +4,7 @@ Each training day uses the following github repositories.
 
 ## Day 1
 
+* Keystone - https://github.com/keystonejs/keystone
 * SKEA Django - https://github.com/zactly/skea_django
 * SKEA Node - https://github.com/zactly/skea_node
 * SKEA Rails - https://github.com/zactly/skea_rails
