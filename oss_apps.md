@@ -16,6 +16,7 @@ https://github.com/thangchung/awesome-dotnet-core
 * [Libresonic](https://github.com/Libresonic/libresonic)
 
 # Node
+* [Node BB](https://github.com/NodeBB/NodeBB)
 
 # Rails
 
