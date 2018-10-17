@@ -17,6 +17,8 @@ https://github.com/thangchung/awesome-dotnet-core
 
 # Node
 * [Node BB](https://github.com/NodeBB/NodeBB)
+* [Mean Blog](https://github.com/DimiMikadze/Mean-Blog)
+* [Hexo](https://github.com/hexojs/hexo)
 
 # Rails
 
