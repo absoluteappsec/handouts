@@ -23,3 +23,4 @@ https://github.com/thangchung/awesome-dotnet-core
 * [CTFd (Flask)](https://github.com/CTFd/CTFd)
 * [Django CRM](https://github.com/MicroPyramid/Django-CRM)
 * [Django Lightning Fast Shop](https://github.com/diefenbach/django-lfs)
+* [Ecommerce for Mezzanine](https://github.com/stephenmcd/cartridge)
