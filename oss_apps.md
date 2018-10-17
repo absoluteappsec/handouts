@@ -22,4 +22,4 @@ https://github.com/thangchung/awesome-dotnet-core
 # Django/Flask
 * [CTFd (Flask)](https://github.com/CTFd/CTFd)
 * [Django CRM](https://github.com/MicroPyramid/Django-CRM)
-* [Django Lite Fast Shop](https://github.com/diefenbach/django-lfs)
+* [Django Lightning Fast Shop](https://github.com/diefenbach/django-lfs)
