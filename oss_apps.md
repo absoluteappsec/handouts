@@ -19,6 +19,7 @@ https://github.com/thangchung/awesome-dotnet-core
 * [Node BB](https://github.com/NodeBB/NodeBB)
 * [Mean Blog](https://github.com/DimiMikadze/Mean-Blog)
 * [Hexo](https://github.com/hexojs/hexo)
+* [Timeoff Management Application](https://github.com/timeoff-management/application)
 
 # Rails
 
