@@ -18,4 +18,6 @@ https://github.com/thangchung/awesome-dotnet-core
 
 # Rails
 
-# Django
+# Django/Flask
+* [CTFd (Flask)](https://github.com/CTFd/CTFd)
+* [Django CRM](https://github.com/MicroPyramid/Django-CRM)
