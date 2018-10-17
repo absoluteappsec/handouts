@@ -1,6 +1,6 @@
 # .NET
 
-## Full list
+## Full List
 
 https://github.com/thangchung/awesome-dotnet-core
 
@@ -16,7 +16,8 @@ https://github.com/thangchung/awesome-dotnet-core
 * [Libresonic](https://github.com/Libresonic/libresonic)
 
 # Node
-## Full list
+
+## Full List
 
 https://github.com/sqreen/awesome-nodejs-projects
 
@@ -39,6 +40,13 @@ https://github.com/ekremkaraca/awesome-rails#apps-made-with-rails
 * [PasswordPusher](https://github.com/pglombardo/PasswordPusher)
 
 # Django/Flask
+
+## Full List
+
+https://github.com/rosarior/awesome-django
+
+## Recommended
+
 * [CTFd (Flask)](https://github.com/CTFd/CTFd)
 * [Django CRM](https://github.com/MicroPyramid/Django-CRM)
 * [Django Lightning Fast Shop](https://github.com/diefenbach/django-lfs)
