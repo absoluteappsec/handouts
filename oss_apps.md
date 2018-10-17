@@ -13,6 +13,7 @@ https://github.com/thangchung/awesome-dotnet-core
 # Java
 
 * [Spring Boot Cities](https://github.com/cf-platform-eng/spring-boot-cities)
+* [Libresonic](https://github.com/Libresonic/libresonic)
 
 # Node
 
