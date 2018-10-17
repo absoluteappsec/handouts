@@ -16,6 +16,11 @@ https://github.com/thangchung/awesome-dotnet-core
 * [Libresonic](https://github.com/Libresonic/libresonic)
 
 # Node
+## Full list
+
+https://github.com/sqreen/awesome-nodejs-projects
+
+## Recommended
 * [Node BB](https://github.com/NodeBB/NodeBB)
 * [Mean Blog](https://github.com/DimiMikadze/Mean-Blog)
 * [Hexo](https://github.com/hexojs/hexo)
