@@ -20,6 +20,16 @@ https://github.com/thangchung/awesome-dotnet-core
 
 # Rails
 
+## Full List
+
+https://github.com/ekremkaraca/awesome-rails#apps-made-with-rails
+
+## Recommended
+
+* [Ask Away](https://github.com/askaway/askaway)
+* [GitLabHQ](https://github.com/gitlabhq/gitlabhq)
+* [PasswordPusher](https://github.com/pglombardo/PasswordPusher)
+
 # Django/Flask
 * [CTFd (Flask)](https://github.com/CTFd/CTFd)
 * [Django CRM](https://github.com/MicroPyramid/Django-CRM)
