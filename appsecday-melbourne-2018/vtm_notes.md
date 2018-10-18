@@ -113,7 +113,7 @@ There are groups - is this some sort of RBAC/Association
 - [ ] `/taskManager/logout/`	taskManager.views.logout_view	taskManager:logout
 - [ ] `/taskManager/manage_groups/`	taskManager.views.manage_groups	taskManager:manage_groups
 - [ ] `/taskManager/manage_projects/`	taskManager.views.manage_projects	taskManager:manage_projects
-- [ ] `POST /taskManager/ping/`	taskManager.views.ping	taskManager:ping
+- [x] `POST /taskManager/ping/`	taskManager.views.ping	taskManager:ping
   * Completely unauth'd access available
   * CSRF-able using `csrf_exempt`
   * Command Injection potentially using `subprocess` **CONFIRMED**
