@@ -62,3 +62,7 @@ Recommend some stuff.
 
 - [ ] `GET /lulz LulzController.java`
 - [ ] `POST /admin/rofl AdminRoflController.java`
+
+## Mapping / Files
+
+- [ ] /path/to/some/important/file.sh
