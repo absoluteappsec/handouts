@@ -52,4 +52,16 @@
 
 ## Datastore
 
+- [ ] SQL / NoSQL Injection
+- [ ] Key store manipulation (memcache, redis)
+- [ ] Validations?
+- [ ] Typically where cryptographic operations take place such as generate authentication tokens, hashing passwords, etc.
+
 ## File handling
+
+- [ ] How are file uploads stored
+- [ ] Security controls?
+  - [ ] A/V Scanning
+  - [ ] Size / Filetype restrictions
+- [ ] How are they retrieved (both Access Control but any sort of traversal or LFI/RFI would be interesting)
+
