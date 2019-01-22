@@ -26,7 +26,9 @@
 - [ ] Password hashing mechanism
 - [ ] Timing attacks - this could be username/password or HMAC operations verifying keys
 - [ ] Forgot Password
-- [ ] 2fa
+- [ ] 2 factor auth
+- [ ] Enumeration... if it matters
+- [ ] Signup
 
 ## Auditing
 
