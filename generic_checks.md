@@ -20,8 +20,12 @@
   - [ ] Sensitive Data Exposure
   - [ ] Mass Assignment
   - [ ] Business Logic Flaws
+  - [ ] Are CSRF Protections applied correctly
+  - [ ] Are users forced to re-assert their credentials for requests that have critical side-effect (account changes, password reset, etc)?
 
 ## Authentication
+
+* Authentication function checks
 
 - [ ] Password hashing mechanism
 - [ ] Timing attacks - this could be username/password or HMAC operations verifying keys
@@ -29,6 +33,11 @@
 - [ ] 2 factor auth
 - [ ] Enumeration... if it matters
 - [ ] Signup
+- [ ] Brute force attacks
+- [ ] Session Management Issues
+  - [ ] Session Fixation
+  - [ ] Session Destruction
+  - [ ] Session Length
 
 ## Auditing
 
