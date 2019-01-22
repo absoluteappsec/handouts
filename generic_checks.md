@@ -41,6 +41,15 @@
 
 ## Auditing
 
+- [ ] If an exception occurs, does the application fails securely?
+- [ ] Do error messages reveal sensitive application or unnecessary execution details?
+- [ ] Are Component, framework, and system errors displayed to end user?
+- [ ] Does exception handling that occurs during security sensitive processes release resources safely and roll back any transactions?
+- [ ] Are relevant user details and system actions logged?
+- [ ] Is sensitive user input flagged, identified, protected, and not written to the logs?
+  * Credit Card #s, Social Security Numbers, Passwords, PII, keys
+
+
 ## Datastore
 
 ## File handling
