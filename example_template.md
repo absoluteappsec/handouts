@@ -63,6 +63,10 @@ Recommend some stuff.
 - [ ] `GET /lulz LulzController.java`
 - [ ] `POST /admin/rofl AdminRoflController.java`
 
+## Mapping / Authorization Decorators
+
+- [ ] `ensure_logged_in`
+
 ## Mapping / Files
 
 - [ ] /path/to/some/important/file.sh
