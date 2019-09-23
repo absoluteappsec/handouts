@@ -1,0 +1,7 @@
+SSID: OWASPGlobalAppSec
+PASS: SecureTheWeb2019
+
+USERNAME: student
+PASS: training
+
+https://github.com/zactly/handouts
