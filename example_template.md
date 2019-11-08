@@ -51,12 +51,32 @@ Recommend some stuff.
   * ORM - Does SQLi in _this_ way
   * Template language introduces XSS in _this_ way
 
-## Checklist of things to review based on Brainstorming and Tech Stack
+## Checklist of things to review 
 
+### Risks
 - [ ] Look for instances of `| safe` in the template/views
 - [ ] Look for OS commands
 - [ ] Look at the ORM for instances of `createNativeQuery()`
 - [ ] Developer expected `x` but I think we should try to see if `y` is possible
+
+### Authentication
+- [ ] Login page give error messages, check for enumeration
+- [ ] Signup page allows for freeform passwords, does it implement proper password complexity?
+
+### Authorization
+- [ ] Uses @login_required decorator, is it applied on all endpoints appropriately?
+
+### Auditing/Logging
+- [ ] Logging configuration is in `settings.py`, check documentation for secure settings
+
+### Injection
+- [ ] ORM `where` function allows for string concatenation, search for all instances
+
+### Cryptography
+- [ ] References to base64 when handling passwords, is this bad?
+
+### Configuration
+- [ ] Code is ruby/rails, make sure and run brakeman before closing out
 
 ## Mapping / Routes
 
