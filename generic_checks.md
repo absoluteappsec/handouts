@@ -39,6 +39,19 @@
   - [ ] Session Destruction
   - [ ] Session Length
 
+* Is there service-to-service authentication?
+  - [ ] Constant time comparison function used
+  - [ ] HMAC generated using a secure algorithm (basically not SHA1/MD5)
+  - [ ] Requests occur over SSL/TLS
+    - [ ] Verification of SSL/TLS is not turned off
+  - [ ] Reasonable TTL implemented (meaning, an hour or less would be normal.)
+  - [ ] Accounts for time skew
+  - [ ] Shared secret used and stored in vault (not hardcoded)
+  - [ ] Unit-tests for:
+    * Check fails if token/hmac/nonce/etc. is missing or mismatched
+    * Failure if timestamp is missing or expired
+    * Failure if signature verification fails
+
 ## Auditing
 
 - [ ] If an exception occurs, does the application fails securely?
