@@ -35,6 +35,8 @@ https://github.com/ekremkaraca/awesome-rails#apps-made-with-rails
 
 ## Recommended
 
+* [Discourse](https://github.com/discourse/discourse)
+* [Forem](https://github.com/forem/forem)
 * [Ask Away](https://github.com/askaway/askaway)
 * [GitLabHQ](https://github.com/gitlabhq/gitlabhq)
 * [PasswordPusher](https://github.com/pglombardo/PasswordPusher)
