@@ -36,7 +36,7 @@ If anyone can signup, then its external
   * Django Extensions
   * MySQL Client
 * 3rd party components, Examples:
-  * Billing libraries (rubygem, npm, jar, etc.)
+  * Building libraries (rubygem, npm, jar, etc.)
   * JavaScript widgets - (marketing tracking, sales chat widget)
   * Reliant upon other applications - such as receiving webhook events
 * Datastore

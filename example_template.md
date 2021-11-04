@@ -38,7 +38,7 @@ Recommend some stuff.
 
 * Framework & Language - Rails/Ruby, Django/Python, mux/Golang
 * 3rd party components, Examples:
-  * Billing libraries (rubygem, npm, jar, etc.)
+  * Building libraries (rubygem, npm, jar, etc.)
   * JavaScript widgets - (marketing tracking, sales chat widget)
   * Reliant upon other applications - such as receiving webhook events
 * Datastore - Postgresql, MySQL, Memcache, Redis, Mongodb, etc.
@@ -51,7 +51,7 @@ Recommend some stuff.
   * ORM - Does SQLi in _this_ way
   * Template language introduces XSS in _this_ way
 
-## Checklist of things to review 
+## Checklist of things to review
 
 ### Risks
 - [ ] Look for instances of `| safe` in the template/views
