@@ -8,7 +8,7 @@
   * Can non-privileged users view, add, or alter accounts?
   * Is there functionality to add accounts with higher access levels than their own access?
   * How is separation of duties handled?
-- [ ] Identify Authorization functions/filtes
+- [ ] Identify Authorization functions/filters
   * Do they take Tokens? Cookies? Custom or handled by a framework?
 
 * Broken Access Control
