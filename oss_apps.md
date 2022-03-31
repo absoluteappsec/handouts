@@ -45,7 +45,7 @@ https://github.com/ekremkaraca/awesome-rails#apps-made-with-rails
 
 ## Full List
 
-https://github.com/rosarior/awesome-django
+https://github.com/wsvincent/awesome-django
 
 ## Recommended
 
