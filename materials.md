@@ -4,10 +4,14 @@ Each training day uses the following github repositories.
 
 ## Day 1
 
-* Keystone - https://github.com/keystonejs/keystone
 * SKEA Django - https://github.com/zactly/skea_django
 * SKEA Node - https://github.com/zactly/skea_node
 * SKEA Rails - https://github.com/zactly/skea_rails
+* Templates - https://github.com/zactly/handouts - templates
+* Atutor - https://github.com/Atutor/atutor - PHP App
+* VTM - https://github.com/sethlaw/vtm - Vulnerable Task Manager
+* BHIMA - https://github.com/IMA-WorldHealth/bhima - Node App
+* Discourse https://github.com/discourse/discourse - RAILS App
 
 ## Day 2
 
