@@ -2,37 +2,37 @@
 
 ## Ruby
 
-Sinatra
-Ruby on Rails
+* Sinatra
+* Ruby on Rails
 
 ## Python
 
-Django
-Pyramid
-Flask
+* Django
+* Pyramid
+* Flask
 
 ## Node
 
-Express
-Restify
+* Express
+* Restify
 
 ## Golang
 
-Gorilla Mux
+* Gorilla Mux
 
 ## C#
 
-.NET Core
-ASP.NET
-.NET MVC
+* .NET Core
+* ASP.NET
+* .NET MVC
 
 ## Java
 
-Play (Scala)
-Spring
-J2EE
+* Play (Scala)
+* Spring
+* J2EE
 
 # Rust
 
-Rocket
+* Rocket
 
