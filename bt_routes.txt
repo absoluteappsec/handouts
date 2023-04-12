@@ -1,0 +1,156 @@
+                               Prefix Verb     URI Pattern                                                               Controller#Action
+                                 root GET      /                                                                         events#index
+                     new_user_session GET      /users/sign_in(.:format)                                                  devise/sessions#new
+                         user_session POST     /users/sign_in(.:format)                                                  devise/sessions#create
+                 destroy_user_session DELETE   /users/sign_out(.:format)                                                 devise/sessions#destroy
+     user_facebook_omniauth_authorize GET|POST /users/auth/facebook(.:format)                                            devise_overrides/omniauth_callbacks#passthru
+      user_facebook_omniauth_callback GET|POST /users/auth/facebook/callback(.:format)                                   devise_overrides/omniauth_callbacks#facebook
+      user_twitter_omniauth_authorize GET|POST /users/auth/twitter(.:format)                                             devise_overrides/omniauth_callbacks#passthru
+       user_twitter_omniauth_callback GET|POST /users/auth/twitter/callback(.:format)                                    devise_overrides/omniauth_callbacks#twitter
+       user_github_omniauth_authorize GET|POST /users/auth/github(.:format)                                              devise_overrides/omniauth_callbacks#passthru
+        user_github_omniauth_callback GET|POST /users/auth/github/callback(.:format)                                     devise_overrides/omniauth_callbacks#github
+       user_meetup_omniauth_authorize GET|POST /users/auth/meetup(.:format)                                              devise_overrides/omniauth_callbacks#passthru
+        user_meetup_omniauth_callback GET|POST /users/auth/meetup/callback(.:format)                                     devise_overrides/omniauth_callbacks#meetup
+user_google_oauth2_omniauth_authorize GET|POST /users/auth/google_oauth2(.:format)                                       devise_overrides/omniauth_callbacks#passthru
+ user_google_oauth2_omniauth_callback GET|POST /users/auth/google_oauth2/callback(.:format)                              devise_overrides/omniauth_callbacks#google_oauth2
+                    new_user_password GET      /users/password/new(.:format)                                             devise/passwords#new
+                   edit_user_password GET      /users/password/edit(.:format)                                            devise/passwords#edit
+                        user_password PATCH    /users/password(.:format)                                                 devise/passwords#update
+                                      PUT      /users/password(.:format)                                                 devise/passwords#update
+                                      POST     /users/password(.:format)                                                 devise/passwords#create
+             cancel_user_registration GET      /users/cancel(.:format)                                                   devise_overrides/registrations#cancel
+                new_user_registration GET      /users/sign_up(.:format)                                                  devise_overrides/registrations#new
+               edit_user_registration GET      /users/edit(.:format)                                                     devise_overrides/registrations#edit
+                    user_registration PATCH    /users(.:format)                                                          devise_overrides/registrations#update
+                                      PUT      /users(.:format)                                                          devise_overrides/registrations#update
+                                      DELETE   /users(.:format)                                                          devise_overrides/registrations#destroy
+                                      POST     /users(.:format)                                                          devise_overrides/registrations#create
+                new_user_confirmation GET      /users/confirmation/new(.:format)                                         devise/confirmations#new
+                    user_confirmation GET      /users/confirmation(.:format)                                             devise/confirmations#show
+                                      POST     /users/confirmation(.:format)                                             devise/confirmations#create
+                         user_profile GET      /users/:user_id/profile(.:format)                                         profiles#show
+                          user_events GET      /users/:user_id/events(.:format)                                          users/events#index
+                                users GET      /users(.:format)                                                          users#index
+                          meetup_user GET      /meetup_users/:id(.:format)                                               meetup_users#show
+                     archive_location PATCH    /locations/:id/archive(.:format)                                          locations#archive
+                            locations GET      /locations(.:format)                                                      locations#index
+                                      POST     /locations(.:format)                                                      locations#create
+                         new_location GET      /locations/new(.:format)                                                  locations#new
+                        edit_location GET      /locations/:id/edit(.:format)                                             locations#edit
+                             location GET      /locations/:id(.:format)                                                  locations#show
+                                      PATCH    /locations/:id(.:format)                                                  locations#update
+                                      PUT      /locations/:id(.:format)                                                  locations#update
+                                      DELETE   /locations/:id(.:format)                                                  locations#destroy
+            potential_chapter_leaders GET      /chapters/:chapter_id/leaders/potential(.:format)                         chapters/leaders#potential
+                      chapter_leaders GET      /chapters/:chapter_id/leaders(.:format)                                   chapters/leaders#index
+                                      POST     /chapters/:chapter_id/leaders(.:format)                                   chapters/leaders#create
+                       chapter_leader DELETE   /chapters/:chapter_id/leaders/:id(.:format)                               chapters/leaders#destroy
+          code_of_conduct_url_chapter GET      /chapters/:id/code_of_conduct_url(.:format)                               chapters#code_of_conduct_url
+                             chapters GET      /chapters(.:format)                                                       chapters#index
+                                      POST     /chapters(.:format)                                                       chapters#create
+                          new_chapter GET      /chapters/new(.:format)                                                   chapters#new
+                         edit_chapter GET      /chapters/:id/edit(.:format)                                              chapters#edit
+                              chapter GET      /chapters/:id(.:format)                                                   chapters#show
+                                      PATCH    /chapters/:id(.:format)                                                   chapters#update
+                                      PUT      /chapters/:id(.:format)                                                   chapters#update
+                                      DELETE   /chapters/:id(.:format)                                                   chapters#destroy
+             potential_region_leaders GET      /regions/:region_id/leaders/potential(.:format)                           regions/leaders#potential
+                       region_leaders GET      /regions/:region_id/leaders(.:format)                                     regions/leaders#index
+                                      POST     /regions/:region_id/leaders(.:format)                                     regions/leaders#create
+                        region_leader DELETE   /regions/:region_id/leaders/:id(.:format)                                 regions/leaders#destroy
+                              regions GET      /regions(.:format)                                                        regions#index
+                                      POST     /regions(.:format)                                                        regions#create
+                           new_region GET      /regions/new(.:format)                                                    regions#new
+                          edit_region GET      /regions/:id/edit(.:format)                                               regions#edit
+                               region GET      /regions/:id(.:format)                                                    regions#show
+                                      PATCH    /regions/:id(.:format)                                                    regions#update
+                                      PUT      /regions/:id(.:format)                                                    regions#update
+                                      DELETE   /regions/:id(.:format)                                                    regions#destroy
+  organization_download_subscriptions GET      /organizations/:organization_id/download_subscriptions(.:format)          organizations#download_subscriptions
+                        organizations GET      /organizations(.:format)                                                  organizations#index
+                                      POST     /organizations(.:format)                                                  organizations#create
+                     new_organization GET      /organizations/new(.:format)                                              organizations#new
+                         organization GET      /organizations/:id(.:format)                                              organizations#show
+           potential_event_organizers GET      /events/:event_id/organizers/potential(.:format)                          organizers#potential
+                     event_organizers GET      /events/:event_id/organizers(.:format)                                    organizers#index
+                                      POST     /events/:event_id/organizers(.:format)                                    organizers#create
+                      event_organizer DELETE   /events/:event_id/organizers/:id(.:format)                                organizers#destroy
+                     event_checkiners GET      /events/:event_id/checkiners(.:format)                                    checkiners#index
+                                      POST     /events/:event_id/checkiners(.:format)                                    checkiners#create
+                      event_checkiner DELETE   /events/:event_id/checkiners/:id(.:format)                                checkiners#destroy
+                     event_volunteers GET      /events/:event_id/volunteers(.:format)                                    volunteers#index
+                       event_students GET      /events/:event_id/students(.:format)                                      events/students#index
+                      event_attendees GET      /events/:event_id/attendees(.:format)                                     events/attendees#index
+                       event_attendee PATCH    /events/:event_id/attendees/:id(.:format)                                 events/attendees#update
+                                      PUT      /events/:event_id/attendees/:id(.:format)                                 events/attendees#update
+                 event_attendee_names GET      /events/:event_id/attendee_names(.:format)                                events/attendee_names#index
+                         event_emails POST     /events/:event_id/emails(.:format)                                        events/emails#create
+                      new_event_email GET      /events/:event_id/emails/new(.:format)                                    events/emails#new
+                          event_email GET      /events/:event_id/emails/:id(.:format)                                    events/emails#show
+                    edit_event_survey GET      /events/:event_id/survey/edit(.:format)                                   events/surveys#edit
+               arrange_event_sections POST     /events/:event_id/sections/arrange(.:format)                              sections#arrange
+                       event_sections POST     /events/:event_id/sections(.:format)                                      sections#create
+                        event_section PATCH    /events/:event_id/sections/:id(.:format)                                  sections#update
+                                      PUT      /events/:event_id/sections/:id(.:format)                                  sections#update
+                                      DELETE   /events/:event_id/sections/:id(.:format)                                  sections#destroy
+     event_rsvp_quick_destroy_confirm GET      /events/:event_id/rsvps/:rsvp_id/quick_destroy_confirm(.:format)          rsvps#quick_destroy_confirm
+             volunteer_new_event_rsvp GET      /events/:event_id/rsvps/new/volunteer(.:format)                           rsvps#volunteer
+                 learn_new_event_rsvp GET      /events/:event_id/rsvps/new/learn(.:format)                               rsvps#learn
+                   event_rsvp_surveys POST     /events/:event_id/rsvps/:rsvp_id/surveys(.:format)                        surveys#create
+                new_event_rsvp_survey GET      /events/:event_id/rsvps/:rsvp_id/surveys/new(.:format)                    surveys#new
+                          event_rsvps POST     /events/:event_id/rsvps(.:format)                                         rsvps#create
+                      edit_event_rsvp GET      /events/:event_id/rsvps/:id/edit(.:format)                                rsvps#edit
+                           event_rsvp PATCH    /events/:event_id/rsvps/:id(.:format)                                     rsvps#update
+                                      PUT      /events/:event_id/rsvps/:id(.:format)                                     rsvps#update
+                                      DELETE   /events/:event_id/rsvps/:id(.:format)                                     rsvps#destroy
+                preview_event_surveys GET      /events/:event_id/surveys/preview(.:format)                               surveys#preview
+                        event_surveys GET      /events/:event_id/surveys(.:format)                                       surveys#index
+                     new_event_survey GET      /events/:event_id/surveys/new(.:format)                                   surveys#new
+         event_event_session_checkins GET      /events/:event_id/event_sessions/:event_session_id/checkins(.:format)     checkins#index
+                                      POST     /events/:event_id/event_sessions/:event_session_id/checkins(.:format)     checkins#create
+          event_event_session_checkin DELETE   /events/:event_id/event_sessions/:event_session_id/checkins/:id(.:format) checkins#destroy
+                 event_event_sessions GET      /events/:event_id/event_sessions(.:format)                                event_sessions#index
+                  event_event_session GET      /events/:event_id/event_sessions/:id(.:format)                            event_sessions#show
+                                      DELETE   /events/:event_id/event_sessions/:id(.:format)                            event_sessions#destroy
+                event_organizer_tools GET      /events/:event_id/organizer_tools(.:format)                               events/organizer_tools#index
+              event_send_survey_email GET      /events/:event_id/send_survey_email(.:format)                             events/organizer_tools#send_survey_email
+              event_organize_sections GET      /events/:event_id/organize_sections(.:format)                             events/organizer_tools#organize_sections
+                          event_diets GET      /events/:event_id/diets(.:format)                                         events/organizer_tools#diets
+                   event_rsvp_preview GET      /events/:event_id/rsvp_preview(.:format)                                  events/organizer_tools#rsvp_preview
+                    event_close_rsvps GET      /events/:event_id/close_rsvps(.:format)                                   events/organizer_tools#close_rsvps
+                   event_reopen_rsvps GET      /events/:event_id/reopen_rsvps(.:format)                                  events/organizer_tools#reopen_rsvps
+        event_send_announcement_email POST     /events/:event_id/send_announcement_email(.:format)                       events/organizer_tools#send_announcement_email
+            unpublished_event_publish POST     /events/unpublished_events/:unpublished_event_id/publish(.:format)        events/unpublished_events#publish
+               unpublished_event_flag POST     /events/unpublished_events/:unpublished_event_id/flag(.:format)           events/unpublished_events#flag
+                   unpublished_events GET      /events/unpublished_events(.:format)                                      events/unpublished_events#index
+                          feed_events GET      /events/feed(.:format)                                                    events#feed
+                   past_events_events GET      /events/past_events(.:format)                                             events#past_events
+                         levels_event GET      /events/:id/levels(.:format)                                              events#levels
+                               events GET      /events(.:format)                                                         events#index
+                                      POST     /events(.:format)                                                         events#create
+                            new_event GET      /events/new(.:format)                                                     events#new
+                           edit_event GET      /events/:id/edit(.:format)                                                events#edit
+                                event GET      /events/:id(.:format)                                                     events#show
+                                      PATCH    /events/:id(.:format)                                                     events#update
+                                      PUT      /events/:id(.:format)                                                     events#update
+                                      DELETE   /events/:id(.:format)                                                     events#destroy
+                      external_events GET      /external_events(.:format)                                                external_events#index
+                                      POST     /external_events(.:format)                                                external_events#create
+                   new_external_event GET      /external_events/new(.:format)                                            external_events#new
+                  edit_external_event GET      /external_events/:id/edit(.:format)                                       external_events#edit
+                       external_event PATCH    /external_events/:id(.:format)                                            external_events#update
+                                      PUT      /external_events/:id(.:format)                                            external_events#update
+                                      DELETE   /external_events/:id(.:format)                                            external_events#destroy
+                              courses GET      /courses(.:format)                                                        courses#index
+                                      POST     /courses(.:format)                                                        courses#create
+                           new_course GET      /courses/new(.:format)                                                    courses#new
+                          edit_course GET      /courses/:id/edit(.:format)                                               courses#edit
+                               course PATCH    /courses/:id(.:format)                                                    courses#update
+                                      PUT      /courses/:id(.:format)                                                    courses#update
+                                      DELETE   /courses/:id(.:format)                                                    courses#destroy
+                                about GET      /about(.:format)                                                          static_pages#about
+                      admin_dashboard GET      /admin_dashboard(.:format)                                                admin_pages#admin_dashboard
+                      send_test_email GET      /admin_dashboard/send_test_email(.:format)                                admin_pages#send_test_email
+                      raise_exception GET      /admin_dashboard/raise_exception(.:format)                                admin_pages#raise_exception
+                          style_guide GET      /style_guide(.:format)                                                    static_pages#style_guide
+                           styleguide GET      /styleguide(.:format)                                                     redirect(301, /style_guide)
