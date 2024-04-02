@@ -68,9 +68,6 @@ chain = (
     | StrOutputParser()
 )
 
-#response = chain.invoke("Where are HTTP routes defined in this codebase?")
-#print(response)
-
 # This is an optional addition to stream the output in chunks
 # for a chat-like experience
 for chunk in chain.stream("Which Django authorization decorators are used in this application code base and where are they located?"):
