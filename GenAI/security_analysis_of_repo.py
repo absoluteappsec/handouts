@@ -16,7 +16,7 @@ local_path = './repo'
 
 # Make sure we don't clone the repo if it already exists and clone if it doesn't
 if os.path.isdir(local_path) and os.path.isdir(os.path.join(local_path, '.git')):
-    print("Directory already contains a git repository.")
+    print("Directory already contains a git repository.\n\n")
 else:
     try:
         repo = git.Repo.clone_from(repo_url, local_path)
@@ -77,7 +77,9 @@ for text in texts:
 
     # This is an optional addition to stream the output in chunks
     # for a chat-like experience
-    print(f"Analyzing code from {filename}")
+    title = f"Analyzing code from {filename}"
+    print(title)
+    print("=" * len(title))
     for chunk in chain.stream({
         "question" : "Analyze the provided code for any security flaws you find in it and produce a summary of that analysis.",
         "code" : code
