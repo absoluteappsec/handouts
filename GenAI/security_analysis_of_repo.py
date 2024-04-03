@@ -65,9 +65,11 @@ llm = Ollama(model="codellama", temperature=0.6)
 for text in texts:
     # Pull the actual code in string format
     code = text.page_content
+    # Retrieve filename for reference
+    filename = text.metadata.get("source", "unknown")
     # Create a chain of operations to run the code through
     chain = (
-        {"code": RunnablePassthrough() , "question": RunnablePassthrough()}
+        { "code": RunnablePassthrough() , "question": RunnablePassthrough()}
         | prompt
         | llm
         | StrOutputParser()
@@ -75,8 +77,9 @@ for text in texts:
 
     # This is an optional addition to stream the output in chunks
     # for a chat-like experience
+    print(f"Analyzing code from {filename}")
     for chunk in chain.stream({
-        "question" : "Analyze the provided code for any security flaws you find in it.",
+        "question" : "Analyze the provided code for any security flaws you find in it and produce a summary of that analysis.",
         "code" : code
         }):
         print(chunk, end="", flush=True)
