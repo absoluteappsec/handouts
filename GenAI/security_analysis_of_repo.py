@@ -77,7 +77,7 @@ for text in texts:
 
     # This is an optional addition to stream the output in chunks
     # for a chat-like experience
-    title = f"\nAnalyzing code from {filename}"
+    title = f"\n\nAnalyzing code from {filename}"
     print(title)
     print("=" * len(title))
     for chunk in chain.stream({
