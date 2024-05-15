@@ -59,7 +59,7 @@ retriever = db.as_retriever(
     search_kwargs={"k": 8},
 )
 
-llm = Ollama(model="codellama", temperature=0.6)
+llm = Ollama(model="llama3", temperature=0.6)
 
 chain = (
     {"context": retriever, "question": RunnablePassthrough()}
