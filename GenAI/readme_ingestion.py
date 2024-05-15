@@ -5,7 +5,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
-llm = Ollama(model="codellama", temperature=0.6)
+llm = Ollama(model="llama3", temperature=0.6)
 question = """
 QUESTION
 ========
