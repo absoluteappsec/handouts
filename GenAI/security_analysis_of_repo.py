@@ -59,7 +59,7 @@ Answer the question below based on the provided code.
 prompt = PromptTemplate.from_template(template)
 
 # Instantiate the CodeLLaMa LLM model
-llm = Ollama(model="llama3, temperature=0.6)
+llm = Ollama(model="llama3, temperature=0.6")
 
 # Iterate through each chunk of code and prompt the LLM model to analyze it
 for text in texts:
