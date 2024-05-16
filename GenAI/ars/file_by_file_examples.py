@@ -52,6 +52,16 @@ You are a helpful code review assistant who is proficient in both security as we
 </question>
 """
 
+
+# CORRECT/FORMAL WAY TO PERFORM PROMPTING
+#prompt = ChatPromptTemplate.from_messages(
+#            [
+#                ("system", system_prompt_template),
+#                ("human", """<question>{question}</question>""")
+#            ]
+#)
+
+
 prompt = ChatPromptTemplate.from_messages(
             [
                 ("human", prompt_template),
