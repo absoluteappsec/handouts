@@ -34,12 +34,12 @@ documents = loader.load()
 embeddings = HuggingFaceEmbeddings()
 
 splitter = RecursiveCharacterTextSplitter.from_language(language=Language.PYTHON, 
-    chunk_size=8000, 
+    chunk_size=16000, 
     chunk_overlap=20
 )
 
 texts = splitter.split_documents(documents)
-
+print(texts)
 
 db = FAISS.from_documents(texts, embeddings)
 retriever = db.as_retriever(
@@ -65,6 +65,16 @@ prompt = ChatPromptTemplate.from_messages(
             ]
 )
 
+
+# CORRECT/FORMAL WAY TO PERFORM PROMPTING
+#prompt = ChatPromptTemplate.from_messages(
+#            [
+#                ("system", system_prompt_template),
+#                ("human", """<question>{question}</question>""")
+#            ]
+#)
+
+
 llm = Ollama(model="llama3", temperature=0.6)
 
 chain = (
@@ -78,8 +88,8 @@ chain = (
 THE FOLLOWING IS A LIST OF EXAMPLE QUESTIONS TO ASK THE MODEL. UNCOMMENT TO USE.
 """
 
-# question = "Which Django authorization decorators are used in this application code base and where are they located?"
-question = "The following is a Django application code base. Tell me everything you can about the application that might be important to know as a security professional."
+question = "Which Django authorization decorators are used in this application code base and where are they located?"
+#question = "The following is a Django application code base. Tell me everything you can about the application that might be important to know as a security professional."
 
 for chunk in chain.stream(question):
     print(chunk, end="", flush=True)
