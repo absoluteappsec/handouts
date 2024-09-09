@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # For BedRock
-from langchain_community.embeddings import BedrockEmbeddings
+from langchain_aws import BedrockEmbeddings
 from langchain_aws import ChatBedrock
 
 # For Ollama
