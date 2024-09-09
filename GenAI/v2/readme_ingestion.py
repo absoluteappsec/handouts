@@ -17,7 +17,6 @@ llm = ChatBedrock(
     model_kwargs={"temperature": 0.6},
 )
 
-
 question = """
 QUESTION
 ========
