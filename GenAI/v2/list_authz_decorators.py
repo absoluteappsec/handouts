@@ -91,7 +91,7 @@ chain = (
 # This is an optional addition to stream the output in chunks
 # for a chat-like experience
 question = """
-Which Django authorization decorators are used in this 
+Which web application authorization decorators are used in this 
 application code base and where are they located?
 """
 for chunk in chain.stream(question):
