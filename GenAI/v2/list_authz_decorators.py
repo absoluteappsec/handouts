@@ -44,7 +44,7 @@ documents = loader.load()
 #embeddings = HuggingFaceEmbeddings()
 embeddings = BedrockEmbeddings(model_id='amazon.titan-embed-text-v1')
 
-splitter = RecursiveCharacterTextSplitter.from_language(language=Language.PYTHON, 
+splitter = RecursiveCharacterTextSplitter.from_language(language=Language.RUBY, 
     chunk_size=8000, 
     chunk_overlap=20
 )
