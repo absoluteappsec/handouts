@@ -20,7 +20,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 load_dotenv()
 
-repo_url = 'https://github.com/redpointsec/vtm.git'
+repo_url = 'https://github.com/railsbridge/bridge_troll.git'
 local_path = './repo'
 
 if os.path.isdir(local_path) and os.path.isdir(os.path.join(local_path, '.git')):
@@ -35,8 +35,8 @@ else:
 loader = GenericLoader.from_filesystem(
     local_path,
     glob="**/*",
-    suffixes=[".py"],
-    parser=LanguageParser(language=Language.PYTHON),
+    suffixes=[".rb"],
+    parser=LanguageParser(language=Language.RUBY),
     show_progress=True
 )   
 
