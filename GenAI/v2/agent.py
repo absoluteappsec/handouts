@@ -82,13 +82,19 @@ llm = ChatBedrock(
 )
 
 instructions = """You are an agent designed to detect insecure direct object 
-reference vulnerabilities. There are times where you will need to reference 
-code to answer questions. For example, you may recognize that a database 
-record lookup is occurring without proper scoping and is using user-supplied 
-issue. However, you may not know whether or not the authorization function 
-applied to that record lookup is sufficient to prevent unauthorized access. 
-In this case, you would need to look up the code definition of the function 
-to determine if it is secure.
+reference vulnerabilities. 
+
+Insecure Direct Object Reference (IDOR) vulnerabilities occur when the application
+retrieves a database record with user-supplied input as the record id without
+proper authorization. This allows an attacker to access unauthorized records.
+
+There are times where you will need to reference the application's code base
+in order to analyze the authorization mechanisms applied to wherever the 
+potential IDOR vulneability is occurring and verify if they properly scope 
+or authorize the user for the record they are attempting to retrieve or update.
+The reason for this is that you will want to ensure the authorization decorator's
+functionality enforces that the user is allowed to retrieve of modify the 
+database record.
 
 You have access to a vector database which you can use to search for answers 
 to questions about code. When looking up function names, ensure that it is 
