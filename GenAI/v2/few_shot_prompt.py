@@ -87,7 +87,8 @@ llm = ChatBedrock(
 # for a chat-like experience
 question = """
 Identify everywhere in the Django application code base that contains
-SQL Injection vulnerablities.
+SQL Injection vulnerablities. Only tell me about the code that is vulnerable
+to SQL Injection. Don't mention code that is not vulnerable to SQL Injection.
 """
 
 
@@ -124,27 +125,7 @@ examples = [
             vulnerable to SQL Injection.
         """
     },
-    {
-        "context":"""
-            if re.match('.*?(rm|sudo|wget|curl|su|shred) .*',ip,re.I):
-                data = "Nice try on the dangerous commands, but no"
-            else:
-                cmd = "ping -c 5 %s" % ip
-                data = subprocess.getoutput(cmd)
-        """,
-        "question":"Identify everywhere in the Django application code base that contains SQL Injection vulnerablities.",
-        "answer": """
-            This code is not vulnerable to SQL Injection because it is command injection so I will not mention it as vulnerable to SQL Injection."""
-    },
-    {
-        "context": """
-            ssn = forms.CharField(max_length=11, required=False)
-        """,
-        "question": "Identify everywhere in the Django application code base that contains SQL Injection vulnerablities.",
-        "answer": """
-            This code is not vulnerable to SQL Injection because it is a form field definition.
-        """
-    }
+    
 ]
 
 example_prompt = ChatPromptTemplate.from_messages(
