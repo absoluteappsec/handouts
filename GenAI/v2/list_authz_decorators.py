@@ -20,7 +20,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 load_dotenv()
 
-repo_url = 'https://github.com/railsbridge/bridge_troll.git'
+repo_url = 'https://github.com/redpointsec/vtm.git'
 local_path = './repo'
 
 if os.path.isdir(local_path) and os.path.isdir(os.path.join(local_path, '.git')):
@@ -35,8 +35,8 @@ else:
 loader = GenericLoader.from_filesystem(
     local_path,
     glob="**/*",
-    suffixes=[".rb"],
-    parser=LanguageParser(language=Language.RUBY),
+    suffixes=[".py"],
+    parser=LanguageParser(language=Language.PYTHON),
     show_progress=True
 )   
 
@@ -44,7 +44,7 @@ documents = loader.load()
 #embeddings = HuggingFaceEmbeddings()
 embeddings = BedrockEmbeddings(model_id='amazon.titan-embed-text-v1')
 
-splitter = RecursiveCharacterTextSplitter.from_language(language=Language.RUBY, 
+splitter = RecursiveCharacterTextSplitter.from_language(language=Language.PYTHON, 
     chunk_size=8000, 
     chunk_overlap=20
 )
@@ -91,7 +91,7 @@ chain = (
 # This is an optional addition to stream the output in chunks
 # for a chat-like experience
 question = """
-Which web application authorization decorators are used in this 
+Which Django authorization decorators are used in this 
 application code base and where are they located?
 """
 for chunk in chain.stream(question):

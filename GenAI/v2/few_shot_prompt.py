@@ -70,13 +70,7 @@ Please provide helpful and accurate responses to the best of your ability.
 </background>
 """
 
-# CORRECT/FORMAL WAY TO PERFORM PROMPTING
-prompt = ChatPromptTemplate.from_messages(
-            [
-                ("system", system_prompt_template),
-                ("human", """<question>{question}</question>""")
-            ]
-)
+
 retriever = db.as_retriever(
     search_type="mmr", # Also test "similarity"
     search_kwargs={"k": 8},
@@ -95,7 +89,6 @@ question = """
 Identify everywhere in the Django application code base that contains
 SQL Injection vulnerablities.
 """
-
 
 
 prompt = ChatPromptTemplate.from_messages(
@@ -130,12 +123,33 @@ examples = [
             parameterized queries, therefore it is not
             vulnerable to SQL Injection.
         """
+    },
+    {
+        "context":"""
+            if re.match('.*?(rm|sudo|wget|curl|su|shred) .*',ip,re.I):
+                data = "Nice try on the dangerous commands, but no"
+            else:
+                cmd = "ping -c 5 %s" % ip
+                data = subprocess.getoutput(cmd)
+        """,
+        "question":"Identify everywhere in the Django application code base that contains SQL Injection vulnerablities.",
+        "answer": """
+            This code is not vulnerable to SQL Injection because it is command injection so I will not mention it as vulnerable to SQL Injection."""
+    },
+    {
+        "context": """
+            ssn = forms.CharField(max_length=11, required=False)
+        """,
+        "question": "Identify everywhere in the Django application code base that contains SQL Injection vulnerablities.",
+        "answer": """
+            This code is not vulnerable to SQL Injection because it is a form field definition.
+        """
     }
 ]
 
 example_prompt = ChatPromptTemplate.from_messages(
     [
-        ("human", prompt),
+        ("human", "{question}\n{context}"),
         ("ai", "{answer}"),
     ]
 )
@@ -145,16 +159,17 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
     examples=examples,
 )
 
-ChatPromptTemplate.from_messages(
+final_prompt = ChatPromptTemplate.from_messages(
     [
-        few_shot_prompt
-        ("human", prompt)
+        ("system", system_prompt_template),
+        few_shot_prompt,
+        ("human", """<question>{question}</question>""")
     ]
 )
 
 chain = (
     {"context": retriever, "question": RunnablePassthrough()}
-    | prompt
+    | final_prompt
     | llm
     | StrOutputParser()
 )
