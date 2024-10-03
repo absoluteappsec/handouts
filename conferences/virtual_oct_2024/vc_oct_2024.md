@@ -109,7 +109,7 @@ Django - 3.2.21
 | [ ]    | taskManager:task_create         | `/taskManager/<project_id>/task_create/`                | `taskManager.views.task_create`                       |                      |
 | [ ]    | taskManager:task_delete         | `/taskManager/<project_id>/task_delete/<task_id>`       | `taskManager.views.task_delete`                       |                      |
 | [ ]    | taskManager:task_edit           | `/taskManager/<project_id>/task_edit/<task_id>`         | `taskManager.views.task_edit`                         |                      |
-| [ ]    | taskManager:upload              | `/taskManager/<project_id>/upload/`                     | `taskManager.views.upload`                            |                      |
+| [x]    | taskManager:upload              | `/taskManager/<project_id>/upload/`                     | `taskManager.views.upload`                            |                      |
             * Doesn't require anything but a valid session authz-wise
             * **TODO** check out logger.info
             * Passes in user-supplied input to the logging mechanism
@@ -123,6 +123,10 @@ Django - 3.2.21
             * Is this a mime-type bypass?   `content_type = response.headers["Content-Type"]`
             * **POTENTIALLY VULNERABLE** [store_uploaded_file looks dangerous](https://github.com/redpointsec/vtm/blob/9e36a07c2be338d76205c3ad346e4c35a9cb113a/taskManager/misc.py#L30-L31)
             * **POTENTIALLY VULNERABLE** We take the name parameter, we name the file based off of that, are there any traversal/injection/etc. style vulns associated with it
+
+
+| Checked? | Name                            | URL Pattern                                             | Controller#Action                                     | Extra Info           |
+|--------|---------------------------------|---------------------------------------------------------|-------------------------------------------------------|----------------------|
 | [ ]    | taskManager:change_password     | `/taskManager/change_password/`                         | `taskManager.views.change_password`                   |                      |
 | [ ]    | taskManager:dashboard           | `/taskManager/dashboard/`                               | `taskManager.views.dashboard`                         |                      |
 | [ ]    | taskManager:download            | `/taskManager/download/<file_id>/`                      | `taskManager.views.download`                          |                      |
