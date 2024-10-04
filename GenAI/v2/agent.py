@@ -10,7 +10,7 @@ from langchain.text_splitter import Language
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_aws import BedrockEmbeddings
 from langchain_community.vectorstores import FAISS
-
+import git
 import os
 from typing import Optional, Type
 

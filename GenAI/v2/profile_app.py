@@ -21,7 +21,7 @@ from langchain_aws import ChatBedrock
 #from langchain_community.embeddings import HuggingFaceEmbeddings
 #from langchain_community.llms import Ollama
 
-repo_url = 'https://github.com/juice-shop/juice-shop.git'
+repo_url = 'https://github.com/redpointsec/vtm.git'
 local_path = './repo'
 
 if os.path.isdir(local_path) and os.path.isdir(os.path.join(local_path, '.git')):
@@ -38,10 +38,9 @@ for dirpath, dirnames, filenames in os.walk(local_path):
     for file in filenames:
         extension = Path(file).suffix 
         if (
-            extension == '.md' or 
-            extension == '.ts' or
-            file == 'package.json' or
-            file == 'compose.yml'):
+            extension == '.py' or
+            file == 'requirements.txt'
+            ):
             try:
                 print(f"Processing {file}")
                 loader = TextLoader(os.path.join(dirpath, file), encoding='utf-8')
@@ -106,16 +105,16 @@ chain = (
 # for a chat-like experience
 for chunk in chain.stream(
     """Tell me the following information about the code base I am providing you:
-     - Purpose of the Juice Shop application
-     - Web technologies used in the Juice Shop application
-     - Templating language used in the Juice Shop application
-     - Database used in the Juice Shop application
-     - Authentication mechanisms used in the Juice Shop application
-     - Authorization mechanisms used in the Juice Shop application
+     - Purpose of the vtm application
+     - Web technologies used in the vtm application
+     - Templating language used in the vtm application
+     - Database used in the vtm application
+     - Authentication mechanisms used in the vtm application
+     - Authorization mechanisms used in the vtm application
 
 
      List libraries by their name, purpose, and version that are
-    used in the Juice Shop application for the following categories:
+    used in the vtm application for the following categories:
         - Security
         - Testing
         - Documentation
