@@ -77,7 +77,7 @@ retriever = db.as_retriever(
 
 #llm = Ollama(model="llama3", temperature=0.6)
 llm = ChatBedrock(
-    model_id='anthropic.claude-3-haiku-20240307-v1:0',
+    model_id='us.anthropic.claude-3-5-haiku-20241022-v1:0',
     model_kwargs={"temperature": 0.6},
 )
 
