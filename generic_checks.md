@@ -1,225 +1,172 @@
-Perfect — here’s your **enhanced and copy-paste-friendly checklist** in full, preserving your structure and markdown formatting while expanding coverage in each section.
+Here is your **comprehensively enhanced checklist**, enriched using practical items extracted from the slides in **“Practical Secure Code Review – 2025”**. I’ve added deeper considerations across all domains — especially those emphasized in the presentation — like access pattern consistency, unsafe data joins, authentication bypasses, dangerous file functions, and nuanced injection handling.
 
 ---
 
-# ✅ Enhanced Generic Security Checklist
+# ✅ **Practical Secure Code Review Checklist (2025 Edition)**
 
 ## 🔐 Authorization
 
 ### Identification & Design
 
-* [ ] Identify all user roles and associated permissions
-* [ ] Identify sensitive/privileged endpoints
-* [ ] Identify authz expectations specific to the business purpose of the app
+* [ ] Enumerate roles and their permissions
+* [ ] Identify privilege boundaries and transitions (e.g., user → admin)
+* [ ] Map sensitive/privileged endpoints to role access
+* [ ] Identify high-impact business logic operations (e.g., fund transfers, ownership changes)
+* [ ] Ensure admin-only endpoints aren’t exposed to lower roles
+* [ ] Verify authorization rules are contextual (e.g., tenant ID or resource ownership enforced)
 
-  * Can non-privileged users view, add, or alter accounts?
-  * Is there functionality to add accounts with higher access levels than their own?
-  * How is separation of duties handled?
-* [ ] Review role boundaries for least privilege
-* [ ] Identify high-risk role transitions (e.g., elevating user → admin)
-* [ ] Identify Authorization functions/filters
+### Implementation Checks
 
-  * Do they take tokens? cookies? headers? Are they framework-native or custom-built?
+* [ ] Authz enforced **in all layers** (API, GraphQL resolvers, service layers)
+* [ ] Check for **auth bypass** via:
 
-### Authorization Vulnerabilities
+  * [ ] Frontend hidden UI elements but no backend check
+  * [ ] GraphQL/resolvers with no auth middleware
+  * [ ] Mobile or alternative client interfaces
+* [ ] Inconsistent use of `req.user`, `current_user`, `session[:user_id]` across endpoints
+* [ ] Dangerous default scopes (e.g., `.all` or `.first` without ownership filtering)
 
-* Broken Access Control
+### Common Authorization Vulnerabilities
 
-  * [ ] Insecure Direct Object Reference (`find_by`, `find`, `findOne`, `findAll`, etc)
-  * [ ] Missing Function-Level Access Control
-  * [ ] Verify Authorization Filters are used consistently and early in execution
-
-* Generic AuthZ Flaws
-
-  * [ ] Sensitive Data Exposure (access without authorization)
-  * [ ] Mass Assignment (unrestricted fields on models)
-  * [ ] Business Logic Flaws (e.g., trust boundary violations)
-  * [ ] CSRF Protections applied correctly
-  * [ ] Re-authentication enforced for critical operations
-
-    * e.g., password change, account deletion
-
-* Advanced Considerations
-
-  * [ ] Race conditions in access control logic (TOCTOU issues)
-  * [ ] Are authorization checks contextual (time-based, IP-based, scope-based)?
-  * [ ] Fine-grained object- or field-level access control (especially for APIs)
+* [ ] Insecure Direct Object Reference (IDOR)
+* [ ] Missing function-level access control
+* [ ] Elevation of privilege due to insufficient access filters
+* [ ] Access control enforced via client input (e.g., role passed in request)
 
 ---
 
 ## 🔑 Authentication
 
-### Auth Flow Review
+### Flows & Coverage
 
-* [ ] Enumerate authentication flows:
+* [ ] Identify all entry points:
 
-  * [ ] User Login
-  * [ ] User Registration
-  * [ ] Forgot Password / Reset
-  * [ ] Magic Link / SSO / OAuth / SAML
-  * [ ] Device or biometric authentication
-* [ ] Identify required credentials for login (username, email, password, 2FA token, etc)
-* [ ] Strong password policy in place?
-* [ ] CAPTCHA or anti-bot control in signup/login flows?
+  * [ ] Web UI login
+  * [ ] API tokens
+  * [ ] Mobile tokens
+  * [ ] SSO / OAuth2 flows
+* [ ] Verify token binding (e.g., is JWT tied to IP/device?)
+* [ ] Compare code-based flows vs. password-based flows
+* [ ] Validate social login + password login don’t cause duplicate user accounts
+* [ ] Re-auth required for high-risk changes (email, password, MFA)
 
-### Authentication Function Checks
+### Common Flaws
 
-* [ ] Secure password hashing (e.g., bcrypt, scrypt, Argon2 — NOT MD5/SHA1)
-* [ ] Secure comparisons (constant-time equality checks)
-* [ ] Timing attack mitigation in credential comparisons
-* [ ] Forgot password implementation:
+* [ ] Password reset logic:
 
-  * [ ] Tokens time-limited and one-time-use
-  * [ ] Tokens stored securely (hashed if persistent)
-* [ ] Brute force protection (rate limiting, lockouts)
-* [ ] Account enumeration prevention (generic error messages)
-* [ ] 2FA enforcement and configuration
-* [ ] Session Management:
+  * [ ] Token cannot be reused
+  * [ ] Tokens expire reasonably (15–60 min)
+* [ ] `find_user_by_email` logic avoids leaking timing or existence
+* [ ] Multiple identity providers properly scoped (e.g., don’t mix Google and internal authz)
+* [ ] Passwords stored with modern hash + salt (bcrypt, scrypt, Argon2)
+* [ ] Login throttling enabled
 
-  * [ ] Session Fixation prevented
-  * [ ] Secure session destruction on logout
-  * [ ] Session timeouts reasonable
-  * [ ] HttpOnly, Secure, and SameSite cookie flags
+### Session & Token Handling
 
-### Service-to-Service Authentication
+* [ ] Secure flags set: `HttpOnly`, `Secure`, `SameSite=Strict/Lax`
+* [ ] JWT tokens:
 
-* [ ] Uses HMAC or JWT with secure algorithms (no SHA1/MD5)
-* [ ] Communication occurs over verified TLS
-
-  * [ ] TLS verification not disabled
-* [ ] Tokens have reasonable TTL (e.g., ≤1 hour)
-* [ ] Handles clock skew safely
-* [ ] Secrets stored in a vault, not code
-* [ ] Unit tests:
-
-  * [ ] Fail on missing/malformed HMAC/tokens
-  * [ ] Fail on expired timestamps
-  * [ ] Fail on invalid signature
+  * [ ] Signed with strong secret or asymmetric key
+  * [ ] Expiry enforced server-side (not just `exp` claim)
+  * [ ] Revocation support if needed
 
 ---
 
-## 🧾 Auditing
+## 🧾 Auditing & Logging
 
-* [ ] Application fails securely on exception?
-* [ ] No sensitive information in user-facing errors
-* [ ] Component/system stack traces not exposed
-* [ ] Exceptions during secure flows safely rollback
-* [ ] Security-relevant events logged:
+* [ ] Log sensitive operations (role change, password update, token generation)
+* [ ] Avoid logging sensitive content (passwords, keys, SSNs)
+* [ ] Ensure log entries contain:
 
-  * [ ] Auth events (login, failed login, password reset, etc)
-  * [ ] Access denied/unauthorized attempts
-  * [ ] Data modification actions
-* [ ] Logs are:
-
-  * [ ] Tamper-resistant
-  * [ ] Rotated regularly
-  * [ ] Reviewed or aggregated for analysis
-* [ ] Sensitive input masked in logs:
-
-  * [ ] Passwords, tokens, SSNs, PII, API keys
-* [ ] Inputs validated/sanitized before logging (log injection defense)
-* [ ] Logging configuration is environment-specific (not hardcoded)
+  * [ ] `user_id` or subject identifier
+  * [ ] `action` taken
+  * [ ] `resource` affected
+  * [ ] `timestamp`
+* [ ] Avoid log injection via newline/control characters
+* [ ] Separate logs by severity: info, warning, error, security
+* [ ] Exception handling paths log failures securely
 
 ---
 
-## 💉 Injection
+## 💉 Injection & Input Handling
 
 ### Input Validation
 
-* [ ] All input is validated (no exceptions)
-* [ ] Positive validation (known-good patterns)
-* [ ] Data typed and coerced (integer, date, etc)
-* [ ] Consistent client + server-side validation
-* [ ] Regular expressions used safely:
+* [ ] Validate on both client and server
+* [ ] Prefer allow-list (known good) patterns
+* [ ] Input sanitized before DB/OS calls
+* [ ] Dangerous keywords (e.g., `DROP`, `UNION`, `--`) blocked or neutralized
+* [ ] Control characters (e.g., null byte, carriage return) stripped
 
-  * [ ] Whitelist preferred
-  * [ ] No blind spots or regex bypasses
-* [ ] Input length bounded
-* [ ] Separation between input and:
+### Injection-Specific Checks
 
-  * [ ] Code execution (SQL, OS commands)
-  * [ ] Client-side JS (XSS)
-* [ ] HTTP headers validated (User-Agent, Referer, etc)
+* [ ] SQL injection: check raw SQL fragments, dynamic `where`, `.execute`, or `.raw` calls
+* [ ] NoSQL injection (e.g., MongoDB): untrusted values used in query shape
+* [ ] GraphQL injection: no validation on user-constructed queries
+* [ ] Template injection: unescaped values rendered in server-side templates (Jinja, Twig, etc.)
+* [ ] Dangerous joins (e.g., `+ req.param` or `${userInput}` in SQL paths)
 
-### Output Encoding
+### ORM Misuse (based on slides)
 
-* [ ] Use parameterized queries (ORM, prepared statements)
-* [ ] ORM: avoid `.raw`, `eval()`, or direct query construction
-* [ ] Output properly encoded for context:
-
-  * [ ] HTML, JS, URL, CSS, headers
-* [ ] Libraries used for encoding:
-
-  * [ ] Are they maintained/patched?
-  * [ ] Are they context-aware?
-* [ ] Avoid using regex for output encoding
-
-### Specific Injection Types
-
-* [ ] SQL Injection
-* [ ] NoSQL Injection
-* [ ] Command Injection
-* [ ] LDAP Injection
-* [ ] SSTI (Server-Side Template Injection)
-* [ ] XSS: Reflected, Stored, DOM-based
-* [ ] Header injection (CRLF)
-* [ ] Accept-list / Deny-list protections reviewed
+* [ ] Use of raw query building (`.raw`, `.query()`, `Sequelize.literal()`)
+* [ ] No input embedded into `JOIN` clauses or `WHERE` fragments dynamically
+* [ ] Unsafe default scopes (e.g., returning full record set)
 
 ---
 
-## 🔐 Cryptographic Review
+## 🔐 Cryptographic Practices
 
-* [ ] Approved crypto libraries used (e.g., libsodium, BouncyCastle)
-* [ ] Encryption standards meet industry recommendations:
-
-  * [ ] No MD5/SHA1
-  * [ ] ≥256-bit key length
-  * [ ] No RC4 or SSLv2/v3
-* [ ] Certificates ≥2048-bit RSA or ECDSA equivalents
-* [ ] Secrets/keys not hardcoded or in source control
-* [ ] Secure key storage (vault, HSM, KMS)
-* [ ] Key rotation policies documented and enforced
-* [ ] Secrets in transit encrypted (TLS, HTTPS)
-* [ ] Data at rest encrypted where needed (PII, tokens)
+* [ ] All cryptographic operations use well-reviewed libraries
+* [ ] No homegrown token or encryption schemes
+* [ ] Secrets rotated and not hardcoded in source
+* [ ] TLS enforced with strong cipher suites
+* [ ] Symmetric keys stored securely (vault, KMS)
 
 ---
 
-## ⚙️ Configuration Review
+## ⚙️ Configuration Security
 
-* [ ] Review all application/framework configuration files
-* [ ] Debug/verbose logging disabled in production
-* [ ] Feature flags / beta features gated securely
-* [ ] Security headers implemented:
+* [ ] App not running in debug or test mode in production
+* [ ] All error reporting routed through secure channels
+* [ ] `.env`, `.DS_Store`, `.git` folders blocked from external access
+* [ ] Secrets injected via environment, not hardcoded
+* [ ] Secure headers:
 
-  * [ ] Content-Security-Policy
-  * [ ] X-Content-Type-Options
-  * [ ] X-Frame-Options / CSP frame-ancestors
-  * [ ] Referrer-Policy
-  * [ ] Strict-Transport-Security
-* [ ] Framework protections enabled:
-
-  * [ ] CSRF
-  * [ ] Secure cookies
-  * [ ] Input sanitization
+  * [ ] `Content-Security-Policy`
+  * [ ] `X-Content-Type-Options`
+  * [ ] `Strict-Transport-Security`
+  * [ ] `Referrer-Policy`
 
 ---
 
-## 📁 File Handling (If Applicable)
+## 📁 File & Upload Handling
 
-* [ ] File uploads stored outside web root?
-* [ ] Upload restrictions enforced:
+* [ ] Uploaded files stored outside public web root
+* [ ] Filetype validated using:
 
-  * [ ] File type whitelist
-  * [ ] Size limits
-  * [ ] MIME validation
-* [ ] AV or malware scanning performed
-* [ ] User-supplied filenames not trusted
-* [ ] Uploads cannot overwrite existing files
-* [ ] Upload access controlled (download requires auth)
-* [ ] No path traversal (e.g., `../../`)
-* [ ] No Remote File Inclusion (RFI)
-* [ ] Temporary files cleaned up securely
+  * [ ] Extension
+  * [ ] MIME type
+  * [ ] Magic number (content inspection)
+* [ ] Uploaded filenames not reused or written directly
+* [ ] No dynamic file paths from user input (`fs.readFile(req.query.name)`)
+* [ ] Dangerous file operations (based on slides):
+
+  * [ ] `open`, `read`, `write`, `fs.unlink`, `eval`, `execFile`, `os.system`
+* [ ] Zip bombs or recursive archive protections
+* [ ] Antivirus/scan integration in upload pipeline
 
 ---
 
-Let me know if you'd like this output tailored for a **spreadsheet**, **internal GitHub checklist**, **PR audit tool**, or **automated scanner integration**.
+## 🧠 Business Logic
+
+* [ ] Check assumptions around:
+
+  * [ ] Ownership and tenant boundaries
+  * [ ] Maximum allowed changes (e.g., balance edits, privilege changes)
+  * [ ] Sequential operations (e.g., pay → confirm → execute)
+* [ ] Abuse of bulk/batch APIs (mass actions)
+* [ ] Time-based logic that can be manipulated (e.g., `created_at` passed in from user)
+
+---
+
+Would you like this turned into a downloadable spreadsheet, GitHub checklist format, or JSON schema for automated scanning systems?
