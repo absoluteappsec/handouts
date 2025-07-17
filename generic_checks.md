@@ -1,7 +1,3 @@
-Here is your **comprehensively enhanced checklist**, enriched using practical items extracted from the slides in **“Practical Secure Code Review – 2025”**. I’ve added deeper considerations across all domains — especially those emphasized in the presentation — like access pattern consistency, unsafe data joins, authentication bypasses, dangerous file functions, and nuanced injection handling.
-
----
-
 # ✅ **Practical Secure Code Review Checklist (2025 Edition)**
 
 ## 🔐 Authorization
@@ -167,6 +163,5 @@ Here is your **comprehensively enhanced checklist**, enriched using practical it
 * [ ] Abuse of bulk/batch APIs (mass actions)
 * [ ] Time-based logic that can be manipulated (e.g., `created_at` passed in from user)
 
----
 
 Would you like this turned into a downloadable spreadsheet, GitHub checklist format, or JSON schema for automated scanning systems?
