@@ -1,135 +1,225 @@
-# List of generic checks (non-specific)
+Perfect — here’s your **enhanced and copy-paste-friendly checklist** in full, preserving your structure and markdown formatting while expanding coverage in each section.
 
-## Authorization
+---
 
-- [ ] Identify Roles
-- [ ] Identify sensitive/privileged endpoints
-- [ ] Identify authz expectations specific to the business purpose of the app
+# ✅ Enhanced Generic Security Checklist
+
+## 🔐 Authorization
+
+### Identification & Design
+
+* [ ] Identify all user roles and associated permissions
+* [ ] Identify sensitive/privileged endpoints
+* [ ] Identify authz expectations specific to the business purpose of the app
+
   * Can non-privileged users view, add, or alter accounts?
-  * Is there functionality to add accounts with higher access levels than their own access?
+  * Is there functionality to add accounts with higher access levels than their own?
   * How is separation of duties handled?
-- [ ] Identify Authorization functions/filters
-  * Do they take Tokens? Cookies? Custom or handled by a framework?
+* [ ] Review role boundaries for least privilege
+* [ ] Identify high-risk role transitions (e.g., elevating user → admin)
+* [ ] Identify Authorization functions/filters
+
+  * Do they take tokens? cookies? headers? Are they framework-native or custom-built?
+
+### Authorization Vulnerabilities
 
 * Broken Access Control
-  - [ ] Insecure Direct Object Reference (`find_by`, `find`, `findOne`, `findAll`, etc)
-  - [ ] Missing Function Level Access Control
-  - [ ] Verify Authorization Filters
 
-* Generic authz flaws
-  - [ ] Sensitive Data Exposure
-  - [ ] Mass Assignment
-  - [ ] Business Logic Flaws
-  - [ ] Are CSRF Protections applied correctly
-  - [ ] Are users forced to re-assert their credentials for requests that have critical side-effect (account changes, password reset, etc)?
+  * [ ] Insecure Direct Object Reference (`find_by`, `find`, `findOne`, `findAll`, etc)
+  * [ ] Missing Function-Level Access Control
+  * [ ] Verify Authorization Filters are used consistently and early in execution
 
-## Authentication
+* Generic AuthZ Flaws
 
-- [ ] What are the different authentication flows?
-  - [ ] User Login
-  - [ ] User Registration
-  - [ ] Forgot Password
-- [ ] How are users identified? What information do they have to provide?
-  - [ ] Username, email, password, 2fa token, etc.
-- [ ] Does the application implement strong password policies?
+  * [ ] Sensitive Data Exposure (access without authorization)
+  * [ ] Mass Assignment (unrestricted fields on models)
+  * [ ] Business Logic Flaws (e.g., trust boundary violations)
+  * [ ] CSRF Protections applied correctly
+  * [ ] Re-authentication enforced for critical operations
 
-* Authentication function checks
+    * e.g., password change, account deletion
 
-- [ ] Password hashing mechanism
-- [ ] Timing attacks - this could be username/password or HMAC operations verifying keys
-- [ ] Forgot Password
-- [ ] 2 factor auth
-- [ ] Enumeration... if it matters
-- [ ] Signup
-- [ ] Brute force attacks
-- [ ] Session Management Issues
-  - [ ] Session Fixation
-  - [ ] Session Destruction
-  - [ ] Session Length
+* Advanced Considerations
 
-* Is there service-to-service authentication?
-  - [ ] Constant time comparison function used
-  - [ ] HMAC generated using a secure algorithm (basically not SHA1/MD5)
-  - [ ] Requests occur over SSL/TLS
-    - [ ] Verification of SSL/TLS is not turned off
-  - [ ] Reasonable TTL implemented (meaning, an hour or less would be normal.)
-  - [ ] Accounts for time skew
-  - [ ] Shared secret used and stored in vault (not hardcoded)
-  - [ ] Unit-tests for:
-    - [ ] Check fails if token/hmac/nonce/etc. is missing or mismatched
-    - [ ] Failure if timestamp is missing or expired
-    - [ ] Failure if signature verification fails
+  * [ ] Race conditions in access control logic (TOCTOU issues)
+  * [ ] Are authorization checks contextual (time-based, IP-based, scope-based)?
+  * [ ] Fine-grained object- or field-level access control (especially for APIs)
 
-## Auditing
+---
 
-- [ ] If an exception occurs, does the application fails securely?
-- [ ] Do error messages reveal sensitive application or unnecessary execution details?
-- [ ] Are Component, framework, and system errors displayed to end user?
-- [ ] Does exception handling that occurs during security sensitive processes release resources safely and roll back any transactions?
-- [ ] Are relevant user details and system actions logged?
-- [ ] Is sensitive user input flagged, identified, protected, and not written to the logs?
-  - [ ] Credit Card #s, Social Security Numbers, Passwords, PII, keys
-- [ ] Are unexpected errors and inputs logged?
-  - [ ] Multiple login attempts, invalid logins, unauthorized access attempts
-- [ ] Are log details should be specific enough to reconstruct events for audit purposes?
-  - [ ] Are logging configuration settings configurable through settings or environment variables and not hard-coded into the source?
-- [ ] Is user-controlled data validated and/or sanitized before logging to prevent log injection?
+## 🔑 Authentication
 
-## Injection
+### Auth Flow Review
+
+* [ ] Enumerate authentication flows:
+
+  * [ ] User Login
+  * [ ] User Registration
+  * [ ] Forgot Password / Reset
+  * [ ] Magic Link / SSO / OAuth / SAML
+  * [ ] Device or biometric authentication
+* [ ] Identify required credentials for login (username, email, password, 2FA token, etc)
+* [ ] Strong password policy in place?
+* [ ] CAPTCHA or anti-bot control in signup/login flows?
+
+### Authentication Function Checks
+
+* [ ] Secure password hashing (e.g., bcrypt, scrypt, Argon2 — NOT MD5/SHA1)
+* [ ] Secure comparisons (constant-time equality checks)
+* [ ] Timing attack mitigation in credential comparisons
+* [ ] Forgot password implementation:
+
+  * [ ] Tokens time-limited and one-time-use
+  * [ ] Tokens stored securely (hashed if persistent)
+* [ ] Brute force protection (rate limiting, lockouts)
+* [ ] Account enumeration prevention (generic error messages)
+* [ ] 2FA enforcement and configuration
+* [ ] Session Management:
+
+  * [ ] Session Fixation prevented
+  * [ ] Secure session destruction on logout
+  * [ ] Session timeouts reasonable
+  * [ ] HttpOnly, Secure, and SameSite cookie flags
+
+### Service-to-Service Authentication
+
+* [ ] Uses HMAC or JWT with secure algorithms (no SHA1/MD5)
+* [ ] Communication occurs over verified TLS
+
+  * [ ] TLS verification not disabled
+* [ ] Tokens have reasonable TTL (e.g., ≤1 hour)
+* [ ] Handles clock skew safely
+* [ ] Secrets stored in a vault, not code
+* [ ] Unit tests:
+
+  * [ ] Fail on missing/malformed HMAC/tokens
+  * [ ] Fail on expired timestamps
+  * [ ] Fail on invalid signature
+
+---
+
+## 🧾 Auditing
+
+* [ ] Application fails securely on exception?
+* [ ] No sensitive information in user-facing errors
+* [ ] Component/system stack traces not exposed
+* [ ] Exceptions during secure flows safely rollback
+* [ ] Security-relevant events logged:
+
+  * [ ] Auth events (login, failed login, password reset, etc)
+  * [ ] Access denied/unauthorized attempts
+  * [ ] Data modification actions
+* [ ] Logs are:
+
+  * [ ] Tamper-resistant
+  * [ ] Rotated regularly
+  * [ ] Reviewed or aggregated for analysis
+* [ ] Sensitive input masked in logs:
+
+  * [ ] Passwords, tokens, SSNs, PII, API keys
+* [ ] Inputs validated/sanitized before logging (log injection defense)
+* [ ] Logging configuration is environment-specific (not hardcoded)
+
+---
+
+## 💉 Injection
 
 ### Input Validation
-- [ ] Is all input is validated without exception?
-- [ ] Do the validation routines check for known good characters and cast to the proper data type (integer, date, etc.)?
-- [ ] Is the user data validated on the client or server or both (security should not rely solely on client-side validations that may be bypassed)?
-- [ ] If both client-side and server-side data validation is taking place, are these validations consistent and synchronized?
-- [ ] Do string input validation use regular expressions?
-- [ ] Do these regular expressions use blacklists or whitelists?
-- [ ] What bypasses exist within the regular expressions?
-- [ ] Does the application validate numeric input by type and reject unexpected input?
-- [ ] How does the application evaluate and process input length?
-- [ ] Is a strong separation enforced between data and commands (filtering out injection attacks)?
-- [ ] Is there separation between data and client-side scripts?
-- [ ] Is provided data checked for special characters before being passed to SQL, LDAP, XML, OS and third party services?
-- [ ] For web applications, are often forgotten HTTP request components, including HTTP headers (e.g. referrer) validated?
+
+* [ ] All input is validated (no exceptions)
+* [ ] Positive validation (known-good patterns)
+* [ ] Data typed and coerced (integer, date, etc)
+* [ ] Consistent client + server-side validation
+* [ ] Regular expressions used safely:
+
+  * [ ] Whitelist preferred
+  * [ ] No blind spots or regex bypasses
+* [ ] Input length bounded
+* [ ] Separation between input and:
+
+  * [ ] Code execution (SQL, OS commands)
+  * [ ] Client-side JS (XSS)
+* [ ] HTTP headers validated (User-Agent, Referer, etc)
 
 ### Output Encoding
-- [ ] Do databases interactions use parameterized queries?
-- [ ] Do input validation functions properly encode or sanitize data for the output context?
-- [ ] How do framework-provided database ORM functions used?
-- [ ] Does the source code use potentially-dangerous ORM functions? (.raw, etc)
-- [ ] What output encoding libraries are used?
-- [ ] Are output encoding libraries up-to-date and patched?
-- [ ] Is proper output encoding used for the context of each output location?
-- [ ] Are output encoding routines dependent on regular expressions? Are there any weaknesses or blind-spots in these expressions?
 
-### Specific Injection Vulnerabilities
-- [ ] SQL / NoSQL Injection
-- [ ] NoSQL Injection - Key store manipulation (memcache, redis)
-- [ ] Accept-List/Deny-List validation
+* [ ] Use parameterized queries (ORM, prepared statements)
+* [ ] ORM: avoid `.raw`, `eval()`, or direct query construction
+* [ ] Output properly encoded for context:
 
-## Cryptographic Review
-- [ ] What are the standard encryption libraries are used for?
-  - [ ] Hashing functions - password hashing, cryptographic signing, etc
-  - [ ] Encryption functions - data storage, communications
-- [ ] Do the strength of implemented ciphers meet industry standards?
-  - [ ] Less than 256-bit encryption
-  - [ ] MD5/SHA1 for password hashing
-- [ ] Any RC4 stream ciphers
-  - [ ] Certificates with less than 1024-bit length keys
-  - [ ] All SSL protocol versions
-- [ ] Are cryptographic private keys, passwords, and secrets properly protected?
+  * [ ] HTML, JS, URL, CSS, headers
+* [ ] Libraries used for encoding:
 
-## Configuration Review
-- [ ] What are the interesting files used to configure the application and components?
-- [ ] Are any endpoints enabled through configurations properly protected with authentication and authorization?
-- [ ] Are security protections implemented in framework properly configured?
-- [ ] Does the target language and framework version have any known security issues?
-- [ ] Are configuration-controlled security headers implemented according to recommended best practices?
+  * [ ] Are they maintained/patched?
+  * [ ] Are they context-aware?
+* [ ] Avoid using regex for output encoding
 
-## File Handling Review (as needed)
+### Specific Injection Types
 
-- [ ] How are file uploads stored
-- [ ] Security controls?
-  - [ ] A/V Scanning
-  - [ ] Size / Filetype restrictions
-- [ ] How are they retrieved (both Access Control but any sort of traversal or LFI/RFI would be interesting)
+* [ ] SQL Injection
+* [ ] NoSQL Injection
+* [ ] Command Injection
+* [ ] LDAP Injection
+* [ ] SSTI (Server-Side Template Injection)
+* [ ] XSS: Reflected, Stored, DOM-based
+* [ ] Header injection (CRLF)
+* [ ] Accept-list / Deny-list protections reviewed
+
+---
+
+## 🔐 Cryptographic Review
+
+* [ ] Approved crypto libraries used (e.g., libsodium, BouncyCastle)
+* [ ] Encryption standards meet industry recommendations:
+
+  * [ ] No MD5/SHA1
+  * [ ] ≥256-bit key length
+  * [ ] No RC4 or SSLv2/v3
+* [ ] Certificates ≥2048-bit RSA or ECDSA equivalents
+* [ ] Secrets/keys not hardcoded or in source control
+* [ ] Secure key storage (vault, HSM, KMS)
+* [ ] Key rotation policies documented and enforced
+* [ ] Secrets in transit encrypted (TLS, HTTPS)
+* [ ] Data at rest encrypted where needed (PII, tokens)
+
+---
+
+## ⚙️ Configuration Review
+
+* [ ] Review all application/framework configuration files
+* [ ] Debug/verbose logging disabled in production
+* [ ] Feature flags / beta features gated securely
+* [ ] Security headers implemented:
+
+  * [ ] Content-Security-Policy
+  * [ ] X-Content-Type-Options
+  * [ ] X-Frame-Options / CSP frame-ancestors
+  * [ ] Referrer-Policy
+  * [ ] Strict-Transport-Security
+* [ ] Framework protections enabled:
+
+  * [ ] CSRF
+  * [ ] Secure cookies
+  * [ ] Input sanitization
+
+---
+
+## 📁 File Handling (If Applicable)
+
+* [ ] File uploads stored outside web root?
+* [ ] Upload restrictions enforced:
+
+  * [ ] File type whitelist
+  * [ ] Size limits
+  * [ ] MIME validation
+* [ ] AV or malware scanning performed
+* [ ] User-supplied filenames not trusted
+* [ ] Uploads cannot overwrite existing files
+* [ ] Upload access controlled (download requires auth)
+* [ ] No path traversal (e.g., `../../`)
+* [ ] No Remote File Inclusion (RFI)
+* [ ] Temporary files cleaned up securely
+
+---
+
+Let me know if you'd like this output tailored for a **spreadsheet**, **internal GitHub checklist**, **PR audit tool**, or **automated scanner integration**.
